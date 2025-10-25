@@ -86,31 +86,125 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
   }
   
-  function yes() {
-    if (counter >= 3) {
+ function yes() {
+    if (counter >= 0) {
         let model = document.getElementById("model2");
         let model2 = document.getElementById("model");
         let sadMusic = document.getElementById("sadMusic");
         sadMusic.pause();
         model2.style.display = "none";
+
         let happyMusic = document.getElementById("happyMusic");
         happyMusic.play();
+
         model.style.display = "none";
         setTimeout(() => {
             model.style.display = "flex";
         }, 100);
+
         const wedate = document.getElementById("wedate");
         const btns = document.getElementById("btns");
         btns.style.display = "none";
-        wedate.innerText = "We are each other's valentine now. I love you cutie. ❤️😘";
 
-        // Open index1.html in a new tab
-        window.open("index1.html", "_blank");
+        wedate.innerHTML = `
+            You’re my once-in-a-lifetime kind of love… <br>
+            and now, my forever Valentine. <br>
+            I love you, my beautiful world. 💌🥰 <br><br>
+            <img src="valentine-love.jpg" alt="Valentine Love" style="width:400px; border-radius:15px; margin-top:10px;">
+        `;
+
+        // ❤️ Start heart rain for 15 seconds
+        startHeartRain(15000);
+
+        // 🌸 Show popup with glassy background after 15 seconds
+        setTimeout(() => {
+            // Create glass overlay
+            const glass = document.createElement("div");
+            glass.style.position = "fixed";
+            glass.style.top = 0;
+            glass.style.left = 0;
+            glass.style.width = "100%";
+            glass.style.height = "100%";
+            glass.style.background = "rgba(255, 255, 255, 0.2)";
+            glass.style.backdropFilter = "blur(8px)";
+            glass.style.zIndex = 9999;
+            document.body.appendChild(glass);
+
+            // Create popup
+            const popup = document.createElement("div");
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.background = "#ff4f81";
+            popup.style.color = "#fff";
+            popup.style.padding = "30px 50px";
+            popup.style.fontSize = "1.5rem";
+            popup.style.borderRadius = "15px";
+            popup.style.textAlign = "center";
+            popup.style.zIndex = 10000;
+
+            popup.innerHTML = `
+                <div>A little surprise for you 🎁</div>
+                <button id="popupBtn" style="
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    font-size: 1rem;
+                    border-radius: 10px;
+                    border: none;
+                    cursor: pointer;
+                    background: #fff;
+                    color: #ff4f81;
+                ">Open Surprise</button>
+            `;
+
+            document.body.appendChild(popup);
+
+            // ✅ Page changes only on button click
+            document.getElementById("popupBtn").addEventListener("click", () => {
+                window.location.href = "index1.html";
+            });
+
+        }, 15000);
 
     } else {
         alert("Don't say yes right away, cutie. Play around a bit 😉😘");
     }
 }
+
+// ❤️ Heart Rain Function (JS only)
+function startHeartRain(duration) {
+    const endTime = Date.now() + duration;
+
+    const createHeart = () => {
+        if (Date.now() > endTime) return;
+
+        const heart = document.createElement("div");
+        heart.textContent = "💖";
+        document.body.appendChild(heart);
+
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-30px";
+        heart.style.fontSize = 15 + Math.random() * 25 + "px";
+        heart.style.opacity = 0.9;
+        heart.style.zIndex = 9998; // behind glass
+        heart.style.transition = "transform 4s linear, opacity 4s linear";
+
+        setTimeout(() => {
+            heart.style.transform = `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+            heart.style.opacity = 0;
+        }, 10);
+
+        setTimeout(() => heart.remove(), 4000);
+        setTimeout(createHeart, 150);
+    };
+
+    createHeart();
+}
+
+
+
 
   
   function ly2() {
